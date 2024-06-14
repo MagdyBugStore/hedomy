@@ -1,0 +1,60 @@
+# fill get product data
+# create 3 sites ( men , women , kids )
+# add product - for kids -
+# categories
+# set all data in home ( left side ) colors , categories
+# insert products ( men , women , kids )
+# mobile menu
+# footer 
+# sell product to end
+# database
+# quries ( gender , custom)
+# move to database and backend
+# add total in shop-cart
+# مصاريف الشحن وتعديل ال Ui عند طلب المنتج
+# delete cart after order
+# vendors name in product
+# filter products to vendor without gender
+# search - behand search
+# vendor database
+# vendors-products-dashboard
+# fill product details
+# out of stocks
+# is gomlla ?
+# message after order
+# display filter
+
+-----------------------
+update to s3
+vendors auth
+About Us
+Contact Us
+edit products to work with filter
+look at related
+stocks number control from dashboard ?
+visitors
+handle hover header
+Privacy Policy
+Terms & Conditions
+font
+handle rating
+sorting
+ابدا نشاطك التجاري
+تسجيل الدخول
+-----------------------------
+handle products limit receive
+
+
+
+phone number
+adress
+email
+مصاريف الشحن
+
+
+Careers
+# panners ( 2 in top & one right bottom)
+
+
+01024968121 // jamal Affiliate
+https://www.messenger.com/t/100081545671484 // 

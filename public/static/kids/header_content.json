@@ -1,0 +1,91 @@
+[
+  {
+    "category": "رضع",
+    "subcategories": [
+      
+    ],
+    "hasbanner": false,
+        "banner": {
+            "imgSrc": "", 
+            "title": "",
+            "content": "",
+            "price": "",
+            "discount": "0"
+        }
+  },
+  {
+    "category": "4 إلي 7 سنوات",
+    "subcategories": [
+      {
+        "title": "اولاد",
+        "items": [
+       
+        ]
+      },
+      {
+        "title": "بنات",
+        "items": [
+       
+        ]
+      }
+    ],
+    "hasbanner": false,
+        "banner": {
+            "imgSrc": "",
+            "title": "",
+            "content": "",
+            "price": "",
+            "discount": "0"
+        }
+  },
+  {
+    "category": "8 إلي 12 سنوات",
+    "subcategories": [
+      {
+        "title": "اولاد",
+        "items": [
+       
+        ]
+      },
+      {
+        "title": "بنات",
+        "items": [
+       
+        ]
+      }
+    ],
+    "hasbanner": false,
+        "banner": {
+            "imgSrc": "",
+            "title": "",
+            "content": "",
+            "price": "",
+            "discount": "0"
+        }
+  },
+  {
+    "category": "13 إلي 16 سنوات",
+    "subcategories": [
+      {
+        "title": "اولاد",
+        "items": [
+       
+        ]
+      },
+      {
+        "title": "بنات",
+        "items": [
+       
+        ]
+      }
+    ],
+    "hasbanner": false,
+        "banner": {
+            "imgSrc": "",
+            "title": "",
+            "content": "",
+            "price": "",
+            "discount": "0"
+        }
+  }
+]

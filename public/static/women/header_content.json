@@ -1,0 +1,92 @@
+[
+  {
+    "category": "ملابس خروج",
+    "subcategories": [
+      {
+        "title": "العباية",
+        "items": [
+          "عباية قطعة واحدة",
+          "عباية قطعتين",
+          "خليجي",
+          "كاجوال"
+        ]
+      },
+      {
+        "title": "الجلباب",
+        "items": [
+          "مبطن",
+          "كاجوال"
+        ]
+      },
+      {
+        "title": "نقاب",
+        "items": [
+          "ماليزى",
+          "ملكى",
+          "يمنى",
+          "سعودى",
+          "خليجى"
+        ]
+      }
+    ],
+    "hasbanner": false,
+    "banner": {
+      "imgSrc": "",
+      "title": "",
+      "content": "",
+      "price": "",
+      "discount": ""
+    }
+  },
+  {
+    "category": "ملابس بيتي",
+    "subcategories": [
+      {
+        "title": "",
+        "items": []
+      },
+      {
+        "title": "",
+        "items": []
+      },
+      {
+        "title": "",
+        "items": []
+      }
+    ],
+    "hasbanner": false,
+    "banner": {
+      "imgSrc": "",
+      "title": "",
+      "content": "",
+      "price": "",
+      "discount": ""
+    }
+  },
+  {
+    "category": "داخلي",
+    "subcategories": [
+      {
+        "title": "",
+        "items": []
+      },
+      {
+        "title": "",
+        "items": []
+      },
+      {
+        "title": "",
+        "items": []
+      }
+    ],
+    "hasbanner": false,
+    "banner": {
+      "imgSrc": "",
+      "title": "",
+      "content": "",
+      "price": "",
+      "discount": ""
+    }
+  }
+
+]

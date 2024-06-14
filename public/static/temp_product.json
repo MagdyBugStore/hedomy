@@ -1,0 +1,96 @@
+{
+    "title": {
+        "en": "Running Shoes",
+        "ar": "هودي"
+    },
+    "gender": {
+        "en": "running-shoes",
+        "ar": "هوديز-1"
+    },
+    "images": [
+        {
+            "img": "/images/products/1-1.jpg"
+        },
+        {
+            "img": "/images/products/1-2.jpg"
+        }
+    ],
+    "color": "",
+    "price": 215,
+    
+    "desc": {
+        "en": "High-quality injection sole\nImported synthetic upper\nComfortable fit\nVery stylish and practical",
+        "ar": "-نعل حقن عالي الجودة\n-وش فوندي مستورد\n-مريح في اللبس\n-شيك وعملي جدا جدا"
+    },
+    "slug": {
+        "en": "running-shoes",
+        "ar": "هوديز-1"
+    },
+    "totalSell": 4,
+    "gallery": [
+        {
+            "thumb": "null"
+        }
+    ],
+    "condition": "null",
+    "vendor": {
+        "en": {
+            "$oid": "64becaff493a18844957bd51",
+            "ar": "64becaff493a18844957bd51"
+        }
+    },
+    "brand": {
+        "en": "Brand Name",
+        "ar": "اسم الماركة"
+    },
+    "category": {
+        "en": "Category",
+        "ar": "الفئة"
+    },
+    "featured": true,
+    "trending": true,
+    "discount": {
+        "banner": "null",
+        "percentage": 40,
+        "expireDate": {
+            "$date": "2023-05-05T22:00:00.000Z"
+        },
+        "isActive": true
+    },
+    "variations": {
+        "en": "Variations",
+        "ar": "تفاصيل"
+    },
+    "material": {
+        "en": "Material",
+        "ar": "المواد"
+    },
+    "tags": {
+        "en": [
+            "Tag1",
+            "Tag2"
+        ],
+        "ar": [
+            "علامة1",
+            "علامة2"
+        ]
+    },
+    "sizes": {
+        "en": "41-42-43-44-45",
+        "ar": "41-42-43-44-45"
+    },
+    "review": 1,
+    "rating": 5,
+    "stock": 20,
+    "ratingScore": 50,
+    "dimension": {
+        "en": "Dimensions",
+        "ar": "الأبعاد"
+    },
+    "createdAt": {
+        "$date": "2023-08-26T00:07:27.962Z"
+    },
+    "updatedAt": {
+        "$date": "2023-08-26T00:07:27.962Z"
+    }
+}

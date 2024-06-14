@@ -1,0 +1,88 @@
+[
+    {
+        
+        "title": {
+            "en": "",
+            "ar": "تي شيرت أكمام طويلة "
+        },
+        "desc": {
+            "en": "",
+            "ar": "تي شيرت بأكمام طويلة "
+        },
+        "gender": 1,
+        "colors": [],
+        "brand": 2,
+        "category": 1,
+        "slug": "تي-شيرت-أكمام-طويلة-",
+        "images": [
+            {
+                "img": "/assets/imgs/shop/product-1-1.jpg"
+            },
+            {
+                "img": "/assets/imgs/shop/product-1-2.jpg"
+            }
+        ],
+        "price": 215,
+        "totalSell": 4,
+        "gallery": [
+            {
+                "img": "/assets/imgs/shop/product-1-1.jpg"
+            },
+            {
+                "img": "/assets/imgs/shop/product-1-2.jpg"
+            },
+            {
+                "img": "/assets/imgs/shop/product-1-1.jpg"
+            },
+            {
+                "img": "/assets/imgs/shop/product-1-2.jpg"
+            }
+        ],
+        "condition": "null",
+        "vendor": "64becaff493a18844957bd51",
+        "featured": true,
+        "trending": true,
+        "discount": {
+            "banner": "null",
+            "percentage": 40,
+            "expireDate": {
+                "$date": "2023-05-05T22:00:00.000Z"
+            },
+            "isActive": true
+        },
+        "variations": [
+            "red",
+            "yellow",
+            "white",
+            "orange",
+            "cyan",
+            "green",
+            "purple"
+        ],
+        "material": {
+            "en": "Material",
+            "ar": "المواد"
+        },
+        "tags": [
+            "Tag1",
+            "Tag2",
+            "علامة1",
+            "علامة2"
+        ],
+        "sizes": "41-42-43-44-45",
+        "review": 1,
+        "rating": 5,
+        "stock": 20,
+        "ratingScore": 50,
+        "dimension": {
+            "en": "Dimensions",
+            "ar": "الأبعاد"
+        },
+        "createdAt": {
+            "$date": "2023-08-26T00:07:27.962Z"
+        },
+        "updatedAt": {
+            "$date": "2023-08-26T00:07:27.962Z"
+        }
+    }
+]

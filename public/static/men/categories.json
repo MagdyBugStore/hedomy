@@ -1,0 +1,86 @@
+[
+    {
+        "id": 1,
+        "title": "تي شيرت",
+        "img": "category-1.png",
+        "description": "ملابس تي شيرت عصرية",
+        "url": "tees"
+    },
+    {
+        "id": 2,
+        "title": "سويتر",
+        "img": "category-2.png",
+        "description": "أفضل اختيار للأيام الباردة",
+        "url": "sweaters"
+    },
+    {
+        "id": 3,
+        "title": "هودي",
+        "img": "category-3.png",
+        "description": "أسلوب مريح وعصري",
+        "url": "hoodies"
+    },
+    {
+        "id": 4,
+        "title": "بيجامة",
+        "img": "category-4.png",
+        "description": "استمتع بالراحة في الليل",
+        "url": "pyjamas"
+    },
+    {
+        "id": 5,
+        "title": "طقم رياضة",
+        "img": "category-5.png",
+        "description": "ملابس رياضية لنمط حياة نشط",
+        "url": "sportswear"
+    },
+    {
+        "id": 6,
+        "title": "بلوزة",
+        "img": "category-6.png",
+        "description": "تصاميم أنيقة للمناسبات الخاصة",
+        "url": "blouses"
+    },
+    {
+        "id": 7,
+        "title": "كوتشيات",
+        "img": "category-7.png",
+        "description": "أحذية كوتشي رائعة",
+        "url": "sneakers"
+    },
+    {
+        "id": 8,
+        "title": "جزم",
+        "img": "category-8.png",
+        "description": "تصميمات جميلة للأقدام",
+        "url": "boots"
+    },
+    {
+        "id": 9,
+        "title": "شباشب",
+        "img": "category-9.png",
+        "description": "شباشب مريحة وعصرية",
+        "url": "slippers"
+    },
+    {
+        "id": 10,
+        "title": "شورتات",
+        "img": "category-10.png",
+        "description": "شورتات مثالية للصيف",
+        "url": "shorts"
+    },
+    {
+        "id": 11,
+        "title": "قمصان",
+        "img": "category-11.png",
+        "description": "أنماط متنوعة من القمصان",
+        "url": "shirts"
+    },
+    {
+        "id": 12,
+        "title": "جواكيت",
+        "img": "category-12.png",
+        "description": "جواكيت دافئة لفصل الشتاء",
+        "url": "jackets"
+    }
+]
