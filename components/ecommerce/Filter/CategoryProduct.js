@@ -28,8 +28,8 @@ const CategoryProduct = ({ updateProductCategory , gender }) => {
             <ul>
                 
                 {
-                    tags.map((category) => (
-                        <li key={category.id} onClick={(e) => AddCategory(category)}>
+                    tags.map((category,index) => (
+                        <li key={index} onClick={(e) => AddCategory(category)}>
                             <a>
                                 {category}
                             </a>

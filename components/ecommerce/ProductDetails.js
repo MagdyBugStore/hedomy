@@ -22,7 +22,7 @@ const ProductDetails = ({
     decreaseQuantity,
     quickView,
 }) => {
-    const [quantity, setQuantity] = useState(product.group);
+    const [quantity, setQuantity] = useState(1);
 
 
     const handleCart = (product) => {
@@ -41,6 +41,7 @@ const ProductDetails = ({
     };
 
     const inCart = cartItems.find((cartItem) => cartItem.id === product._id);
+    
     return (
         <>
             <section className="mt-50 mb-50" dir="rtl">
@@ -67,8 +68,8 @@ const ProductDetails = ({
                                                 product.group > 1 &&
                                                 <span className="stock-status out-stock"> البيع ب {product.group} قطعه </span>
                                             }
-                                            
-                                            <h2 className="title-detail">{product.title.ar}</h2>
+
+                                            <h2 className="title-detail">{product.name_ar || product.name_en}</h2>
                                             <div className="product-detail-rating">
                                                 <div className="product-rate-cover text-end">
                                                     <div className="product-rate d-inline-block">
@@ -80,21 +81,21 @@ const ProductDetails = ({
                                             <div className="clearfix product-price-cover">
                                                 <div className="product-price primary-color float-left">
                                                     <span className="current-price text-brand">{product.price} ج.م </span>
-                                                    {product.discount.percentage &&
-                                                    <span>
-                                                        <span className="save-price font-md color3 mr-15">{product.discount.percentage}% تخفيض</span>
-                                                        <span className="old-price font-md ml-15">{product.oldPrice ? `ج.م ${product.oldPrice}` : null}</span>
-                                                    </span>
+                                                    {product.discount?.percentage &&
+                                                        <span>
+                                                            <span className="save-price font-md color3 mr-15">{product.discount.percentage}% تخفيض</span>
+                                                            <span className="old-price font-md ml-15">{product.oldPrice ? `ج.م ${product.oldPrice}` : null}</span>
+                                                        </span>
                                                     }
                                                 </div>
                                             </div>
                                             <div className="short-desc mb-30">
-                                                <p className="font-lg">{product.desc.ar}</p>
+                                                <p className="font-lg">{product.desc?.ar}</p>
                                             </div>
                                             <div className="attr-detail attr-color mb-15">
                                                 <strong className="ml-10">الالوان</strong>
                                                 <ul className="list-filter color-filter">
-                                                    {product.variations.map((clr, i) => (
+                                                    {product.variations?.map((clr, i) => (
                                                         <li key={i}>
                                                             <a href="#">
                                                                 <span className={`product-color-${clr}`}></span>
@@ -106,22 +107,22 @@ const ProductDetails = ({
                                             <div className="attr-detail attr-size">
                                                 <strong className="ml-10">اندازه</strong>
                                                 <ul className="list-filter size-filter font-small">
-                                                    
-                                                {product.sizes.split('-').map((size, index) => (
-                                                    <li key={index} className={index === 0 ? 'active' : ''}>
-                                                        <a>{size}</a>
-                                                    </li>
-                                                ))}
+
+                                                    {product.sizes?.split('-').map((size, index) => (
+                                                        <li key={index} className={index === 0 ? 'active' : ''}>
+                                                            <a>{size}</a>
+                                                        </li>
+                                                    ))}
                                                 </ul>
                                             </div>
                                             <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                                             <div className="detail-extralink">
                                                 <div className="detail-qty border radius">
-                                                    <a onClick={(e) => (!inCart ? setQuantity(quantity > product.group ? quantity - product.group : product.group) : decreaseQuantity(product?.id))} className="qty-down">
+                                                    <a onClick={(e) => (!inCart ? setQuantity(quantity > 1 ? quantity-- : 1) : decreaseQuantity(product?.id))} className="qty-down">
                                                         <i className="fi-rs-angle-small-down"></i>
                                                     </a>
                                                     <span className="qty-val">{inCart?.quantity || quantity}</span>
-                                                    <a onClick={() => (!inCart ? setQuantity(quantity + product.group) : increaseQuantity(product._id))} className="qty-up">
+                                                    <a onClick={() => (!inCart ? setQuantity(quantity + 1) : increaseQuantity(product._id))} className="qty-up">
                                                         <i className="fi-rs-angle-small-up"></i>
                                                     </a>
                                                 </div>

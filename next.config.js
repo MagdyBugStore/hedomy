@@ -15,6 +15,10 @@ const nextConfig = {
         }
       ];
     },
+    env: {
+      BASE_URL: "https://carrefour-1.onrender.com/api/",
+      MAP_KEY: "AIzaSyBmXFsC7j7TpnZhwwqTYGPc8YaUXUjDw0g",
+    },
   };
   
   module.exports = nextConfig;
