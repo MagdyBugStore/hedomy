@@ -20,24 +20,10 @@ function MyApp({ Component, pageProps }) {
 
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    }, []);
+   
     return (
         <>
-            {!loading ? (
-                <Provider store={store}>
-                    <StorageWrapper>
-                        <Component {...pageProps} />
-                        <ToastContainer />
-                    </StorageWrapper>
-                </Provider>
-            ) : (
-                <Preloader />
-            )}
+           
         </>
     );
 }
