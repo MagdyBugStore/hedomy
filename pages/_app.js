@@ -27,7 +27,16 @@ function MyApp({ Component, pageProps }) {
     }, []);
     return (
         <>
-            <div></div>
+            {!loading ? (
+                <Provider store={store}>
+                    <StorageWrapper>
+                        <Component {...pageProps} />
+                        <ToastContainer />
+                    </StorageWrapper>
+                </Provider>
+            ) : (
+                <Preloader />
+            )}
         </>
     );
 }
