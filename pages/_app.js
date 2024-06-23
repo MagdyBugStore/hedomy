@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
     }, []);
     return (
         <>
-        <div></div>
+            <div></div>
         </>
     );
 }
