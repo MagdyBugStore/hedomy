@@ -11,7 +11,6 @@ import "swiper/css/navigation";
 import StorageWrapper from "../components/ecommerce/storage-wrapper";
 import store from "../redux/store";
 import Preloader from "./../components/elements/Preloader";
-import "../public/assets/css/main.css";
 
 
 
