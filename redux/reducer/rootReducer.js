@@ -4,7 +4,6 @@ import cart from './cart'
 import wishlist from './wishlist'
 import quickView from './quickView'
 import compare from './compare'
-import api from './api'
 import productFilters from './productFilters'
 
 const rootReducer = combineReducers({
@@ -13,7 +12,6 @@ const rootReducer = combineReducers({
     wishlist,
     quickView,
     compare,
-    api,
     productFilters
 })
 
