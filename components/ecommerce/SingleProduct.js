@@ -38,27 +38,19 @@ const SingleProduct = ({
                     <div className="product-img-action-wrap">
                         <div className="product-img product-img-zoom">
                             <Link
-                                href={`/products/${product._id}`}
+                                href={`/products/${product.slug}`}
                             >
                                 <a>
                                     <img
                                         className="default-img"
-                                        src={product.productPhotos?.defaultImages[0]}
+                                        src={product.images[0].img}
                                         alt=""
                                     />
-                                    {
-                                        product.productPhotos?.defaultImages.length > 0 ?
-                                            <img
-                                                className="hover-img"
-                                                src={product.productPhotos.defaultImages[1]}
-                                                alt=""
-                                            /> :
-                                            <img
-                                                className="hover-img"
-                                                src={product.productPhotos?.defaultImages[0]}
-                                                alt=""
-                                            />
-                                    }
+                                    <img
+                                        className="hover-img"
+                                        src={product.images[1].img}
+                                        alt=""
+                                    />
                                 </a>
                             </Link>
                         </div>
@@ -98,7 +90,7 @@ const SingleProduct = ({
                             {product.totalSell > 100 && (
                                 <span className="best">أكثر مبيعًا</span>
                             )}
-                            {product.discount?.percentage >= 5 && (
+                            {product.discount.percentage >= 5 && (
                                 <span className="sale">
                                     {product.discount.percentage}%
                                 </span>
@@ -114,27 +106,24 @@ const SingleProduct = ({
                         <h2>
                             <Link
                                 href="/products/[slug]"
-                                as={`/products/${product._id}`}
+                                as={`/products/${product.slug.ar}`}
                             >
-                                <a>{product.name_ar || product.name_en}</a>
+                                <a>{product.title.ar}</a>
                             </Link>
                         </h2>
 
-                        {
-                            product.ratingScore &&
-                            <div className="product-rate-cover">
-                                <div className="product-rate d-inline-block">
-                                    <div
-                                        className="product-rating"
-                                        style={{ width: "80%" }}
-                                    ></div>
-                                </div>
-                                <span className="font-small ml-5 text-muted">
-                                    {" "}
-                                    ({product.ratingScore})
-                                </span>
+                        <div className="product-rate-cover">
+                            <div className="product-rate d-inline-block">
+                                <div
+                                    className="product-rating"
+                                    style={{ width: "80%" }}
+                                ></div>
                             </div>
-                        }
+                            <span className="font-small ml-5 text-muted">
+                                {" "}
+                                ({product.ratingScore})
+                            </span>
+                        </div>
 
                         <div>
                             <span className="font-small text-muted">

@@ -21,9 +21,9 @@ const ThumbSlider = ({ product }) => {
                 thumbs={{ swiper: thumbsSwiper }}
                 className="mySwiper2"
             >
-                {product.productPhotos.defaultImages.map((item) => (
+                {product.gallery.map((item) => (
                     <SwiperSlide>
-                        <img src={item} />
+                        <img src={item.img} />
                         {/* <Zoom
                             img={item.thumb}
                             zoomScale={5}
@@ -43,9 +43,9 @@ const ThumbSlider = ({ product }) => {
                 watchSlidesProgress={true}
                 className="mySwiper"
             >
-                {product.productPhotos.defaultImages.map((item, index) => (
+                {product.gallery.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <img src={item} />
+                        <img src={item.img} />
                     </SwiperSlide>
                 ))}
             </Swiper>

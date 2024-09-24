@@ -182,12 +182,6 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                     alt=""
                                 />
                             </a>
-                            <a href="https://www.tiktok.com/@Kambooshacar?_t=8eHlOOrI3Nd&_r=1">
-                                <img
-                                    src="/assets/imgs/theme/icons/icons-tiktok-white.svg"
-                                    alt=""
-                                />
-                            </a>
                         </div>
 
                         <div className="py-6" dir="ltr">
