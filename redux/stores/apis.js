@@ -1,9 +1,5 @@
-import { useQuery } from '@apollo/client';
-import { apolloClient_token } from './apolloClient';
-import { server } from "../../config/index";
 import { storage } from '../../util/localStorage';
 import axios from 'axios';
-import cart from '../reducer/cart';
 
 export async function useMyProducts({ limit, pages, productFilters, values,  search }) {
   var genderValue = storage.gettypeid()
@@ -71,23 +67,3 @@ export async function setbuyer(formData) {
   }
 
 }
-
-
-
-
-// const { data, loading, error } = useQuery(GET_All_PRODUCT, {
-//   client: apolloClient_token,
-// });
-// const products = data?.getAllProductsForAllVendors || [];
-// if (error) {
-//   if (
-//     error.message.includes('Received status code 500') ||
-//     error.message.includes('You are not authorized to access this resource.')
-//   ) {
-//     // Redirect to the login page
-//   } else {
-//     return { loading, error: error.message, products: [] };
-//   }
-// }
-// return { loading, error, products };
-// }
