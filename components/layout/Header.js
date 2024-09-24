@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import Search from "../ecommerce/Search";
 import Menu from '../elements/menu'
-import {storage} from '../../util/localStorage';
+import { storage } from '../../util/localStorage';
 
 
 const Header = ({
@@ -15,6 +15,7 @@ const Header = ({
 }) => {
     const [isToggled, setToggled] = useState(false);
     const [scroll, setScroll] = useState(0);
+    const [type, setType] = useState("");
 
     useEffect(() => {
         document.addEventListener("scroll", () => {
@@ -23,15 +24,16 @@ const Header = ({
                 setScroll(scrollCheck);
             }
         });
-    });
-    
+        setType(storage.get('type'))
+    },[]);
+
     const handleItemClick = (value) => {
-        storage.set('type',value)
+        storage.set('type', value)
     };
     const items = [
         { label: 'رجالي', value: 'men', href: "/men" },
         { label: 'حريمي', value: 'women', href: "/women" },
-        { label: 'اطفال', value: 'kids' , href: "/kids" },
+        { label: 'اطفال', value: 'kids', href: "/kids" },
     ];
 
     const dir = "rtl"
@@ -52,16 +54,20 @@ const Header = ({
                                 <div className="header-info">
                                     <ul>
                                         {items.map((item) => (
-                                            <li
-                                                key={item.value}
-                                                onClick={() => handleItemClick(item.value)}
-                                            >
-                                                <Link href="/" as={item.href} >
-                                                    <a className={storage.get('type') === item.value ? 'selected' : ''}>{item.label}</a>
+                                            <li key={item.value}>
+                                                <Link href={item.href}>
+                                                    {/* Use the new `onClick` prop directly inside `Link` */}
+                                                    <a
+                                                        className={type === item.value ? 'selected' : ''}
+                                                        onClick={() => handleItemClick(item.value)}
+                                                    >
+                                                        {item.label}
+                                                    </a>
                                                 </Link>
                                             </li>
                                         ))}
                                     </ul>
+
                                 </div>
                             </div>
                             <div className="col-xl-6 col-lg-4 hidden">
@@ -78,75 +84,6 @@ const Header = ({
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className="col-xl-3 col-lg-4 hidden">
-                                <div className="header-info header-info-right">
-                                    <ul>
-                                        <li>
-                                            Need help? Call Us: <strong className="text-brand"> + 1800 900</strong>
-                                        </li>
-                                        <li>
-                                            <Link href="/#">
-                                                <a className="language-dropdown-active">
-                                                    <i className="fi-rs-world"></i>
-                                                    English
-                                                    <i className="fi-rs-angle-small-down"></i>
-                                                </a>
-                                            </Link>
-                                            <ul className="language-dropdown">
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            <img src="/assets/imgs/theme/flag-fr.png" alt="" />
-                                                            Français
-                                                        </a>
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            <img src="/assets/imgs/theme/flag-dt.png" alt="" />
-                                                            Deutsch
-                                                        </a>
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/#">
-                                                        <a>
-                                                            <img src="/assets/imgs/theme/flag-ru.png" alt="" />
-                                                            Pусский
-                                                        </a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a className="language-dropdown-active" href="#">
-                                                USD <i className="fi-rs-angle-small-down"></i>
-                                            </a>
-                                            <ul className="language-dropdown">
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="/assets/imgs/theme/flag-fr.png" alt="" />
-                                                        INR
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="/assets/imgs/theme/flag-dt.png" alt="" />
-                                                        MBP
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img src="/assets/imgs/theme/flag-ru.png" alt="" />
-                                                        EU
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div> */}
                         </div>
                     </div>
                 </div>
