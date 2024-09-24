@@ -5,7 +5,6 @@ import Cat2Tab from '../elements/NewArrivalTab';
 import Cat3Tab from '../elements/TrendingTab';
 import Link from "next/link"
 import { useMyProducts } from "../../redux/stores/apis";
-import { GET_All_PRODUCT } from "../../redux/_graphql";
 import { storage } from '../../util/localStorage';
 
 function CategoryTab() {
