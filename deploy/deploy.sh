@@ -2,7 +2,8 @@
 # Pulls main, installs, builds, restarts hedomy-web. Run by the webhook (or by hand).
 set -euo pipefail
 cd /root/hedomy-web
-git fetch -q origin main && git reset -q --hard origin/main
+export HOME=/root
+git -c credential.helper='!gh auth git-credential' fetch -q origin main && git reset -q --hard origin/main
 npm ci --no-audit --no-fund
 npm run build
 systemctl restart hedomy-web
