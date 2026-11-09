@@ -1,0 +1,12 @@
+[Unit]
+Description=Hedomy storefront (Next.js, port 3100)
+After=hedomy-api.service
+
+[Service]
+WorkingDirectory=/root/hedomy-web
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/env npx next start -p 3100 -H 127.0.0.1
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
