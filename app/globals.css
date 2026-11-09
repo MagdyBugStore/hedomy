@@ -31,3 +31,11 @@ button, select, input, textarea { font: inherit; }
 .btn-line { background: transparent; color: var(--ink); }
 .pill { display: inline-flex; align-items: center; gap: .5rem; min-height: 40px; padding: 0 1.1rem; border-radius: 999px; background: var(--surface); border: 0; cursor: pointer; font-size: .92rem; }
 .pill:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+
+.skeleton {
+  background: linear-gradient(100deg, var(--tile) 30%, #f3f3f1 50%, var(--tile) 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer { from { background-position: 120% 0; } to { background-position: -120% 0; } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }

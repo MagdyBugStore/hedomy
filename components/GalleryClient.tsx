@@ -5,9 +5,18 @@ import type { ProductDTO } from "@/lib/types";
 import { imgSrc, money } from "@/lib/format";
 import { useStore } from "./Providers";
 import { HeartIcon } from "./Icons";
+import FadeImg from "./FadeImg";
 import { CAT_LABEL } from "@/lib/config";
 
 type Taste = { likes: number; kinds: string[]; brands: string[]; cats: string[] };
+
+// Pinterest-like varied heights, fixed per product so the layout never jumps while images load.
+const RATIOS = ["aspect-[3/4]", "aspect-[4/5]", "aspect-[2/3]", "aspect-square", "aspect-[3/4]", "aspect-[4/5]"];
+const ratioFor = (id: string) => { let h = 0; for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0; return RATIOS[h % RATIOS.length]; };
+
+function SkeletonTile({ i }: { i: number }) {
+  return <div className={`skeleton mb-3 break-inside-avoid md:mb-4 ${RATIOS[(i * 7 + 2) % RATIOS.length]}`} aria-hidden />;
+}
 
 function Tile({ p }: { p: ProductDTO }) {
   const { favs, toggleFav } = useStore();
@@ -15,8 +24,7 @@ function Tile({ p }: { p: ProductDTO }) {
   return (
     <figure className="group relative mb-3 break-inside-avoid overflow-hidden bg-tile md:mb-4">
       <Link href={`/product/${encodeURIComponent(p.id)}`} className="block">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={imgSrc(p.images[0], 500)} alt={p.title} loading="lazy" decoding="async" referrerPolicy="no-referrer" className="block w-full min-h-40 object-cover" />
+        <div className={`relative w-full ${ratioFor(p.id)}`}><FadeImg src={imgSrc(p.images[0], 500)} alt={p.title} /></div>
         <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 pt-10 text-white opacity-0 transition-opacity group-hover:opacity-100 max-md:opacity-100">
           <div className="text-[11px] opacity-80">{p.brand}</div>
           <div className="line-clamp-1 text-sm">{p.title}</div>
@@ -80,6 +88,7 @@ export default function GalleryClient() {
       </div>
       <div className="columns-2 gap-3 md:columns-3 md:gap-4 xl:columns-5">
         {items.map((p) => <Tile key={p.id} p={p} />)}
+        {loading && Array.from({ length: items.length ? 5 : 10 }, (_, i) => <SkeletonTile key={"s" + i} i={i} />)}
       </div>
       <div ref={sentinel} className="py-10 text-center text-sm text-muted">{loading ? "جاري التحميل…" : !hasMore ? "وصلت للنهاية" : ""}</div>
     </div>

@@ -145,7 +145,7 @@ export default function ShopClient({ lockBrand, brandName: lockedName, logo }: {
         ) : (
           <div className="grid grid-cols-2 gap-x-3 gap-y-8 md:grid-cols-3 md:gap-x-5 lg:grid-cols-4">
             {(data?.items || Array.from({ length: 8 }, () => null)).map((p, i) =>
-              p ? <ProductCard key={p.id} p={p} priority={i < 4} /> : <div key={i} className="aspect-[3/4] animate-pulse bg-tile" />
+              p ? <ProductCard key={p.id} p={p} priority={i < 4} /> : <div key={i} className="skeleton aspect-[3/4]" />
             )}
           </div>
         )}

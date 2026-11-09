@@ -4,6 +4,7 @@ import type { ProductDTO } from "@/lib/types";
 import { imgSrc, money } from "@/lib/format";
 import { useStore } from "./Providers";
 import { HeartIcon } from "./Icons";
+import FadeImg from "./FadeImg";
 
 export default function ProductCard({ p, priority = false }: { p: ProductDTO; priority?: boolean }) {
   const { favs, toggleFav } = useStore();
@@ -12,11 +13,7 @@ export default function ProductCard({ p, priority = false }: { p: ProductDTO; pr
     <article className="group relative">
       <Link href={`/product/${encodeURIComponent(p.id)}`} className="block" tabIndex={-1} aria-hidden="true">
         <div className="relative aspect-[3/4] overflow-hidden bg-tile">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={imgSrc(p.images[0], 600)} alt={p.title} loading={priority ? "eager" : "lazy"} decoding="async" referrerPolicy="no-referrer"
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-          />
+          <FadeImg src={imgSrc(p.images[0], 600)} alt={p.title} eager={priority} className="transition duration-500 group-hover:scale-[1.03]" />
           {p.images[1] && (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={imgSrc(p.images[1], 600)} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer"
