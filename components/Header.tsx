@@ -16,9 +16,11 @@ export default function Header({ nav }: { nav: NavData }) {
   const { count, favs, user, authReady, setUser } = useStore();
   const path = usePathname();
   const [menu, setMenu] = useState(false);
+  const [open, setOpen] = useState<string | null>(null);
   if (path.startsWith("/admin")) return null;
   const close = () => setMenu(false);
   return (
+    <>
     <header className="sticky top-0 z-40 border-b border-line bg-bg/95 backdrop-blur">
       <div className="mx-auto grid h-16 max-w-[1480px] grid-cols-[1fr_auto_1fr] items-center px-4 md:px-8">
         <nav className="hidden items-center md:flex" aria-label="الأقسام">
@@ -77,19 +79,25 @@ export default function Header({ nav }: { nav: NavData }) {
         </div>
       </div>
 
-      {/* mobile menu */}
+    </header>
+      {/* mobile menu (outside header: its backdrop-filter would trap position:fixed) */}
       <div className={`fixed inset-0 z-[70] bg-bg transition-transform md:hidden ${menu ? "translate-x-0" : "translate-x-full invisible"}`} role="dialog" aria-label="القائمة">
         <div className="flex h-16 items-center justify-between border-b border-line px-4"><strong className="text-xl">{SITE_NAME}</strong><button onClick={close} aria-label="إغلاق"><CloseIcon /></button></div>
         <div className="h-[calc(100dvh-4rem)] space-y-1 overflow-y-auto p-4">
           <Link href="/shop" onClick={close} className="block py-2.5 font-medium">كل الملابس</Link>
           {nav.cats.map((c) => (
-            <details key={c.key} className="border-t border-line py-2.5">
-              <summary className="cursor-pointer font-medium">{c.label}</summary>
-              <ul className="mt-2 space-y-2 ps-3 text-sm">
-                <li><Link onClick={close} href={`/shop?cat=${c.key}`} className="font-semibold">كل {c.label}</Link></li>
-                {c.kinds.map((k) => (<li key={k.kind}><Link onClick={close} href={`/shop?cat=${c.key}&kind=${encodeURIComponent(k.kind)}`}>{k.kind}</Link></li>))}
-              </ul>
-            </details>
+            <div key={c.key} className="border-t border-line">
+              <div className="flex items-stretch">
+                <Link href={`/shop?cat=${c.key}`} onClick={close} className="flex-1 py-2.5 font-medium">{c.label}</Link>
+                <button type="button" aria-label={`أقسام ${c.label}`} aria-expanded={open === c.key} onClick={() => setOpen(open === c.key ? null : c.key)} className="grid w-12 place-items-center"><span className={`transition-transform ${open === c.key ? "rotate-180" : ""}`}><Chevron /></span></button>
+              </div>
+              {open === c.key && (
+                <ul className="mb-2 space-y-2 ps-3 text-sm">
+                  <li><Link onClick={close} href={`/shop?cat=${c.key}`} className="font-semibold">كل {c.label}</Link></li>
+                  {c.kinds.map((k) => (<li key={k.kind}><Link onClick={close} href={`/shop?cat=${c.key}&kind=${encodeURIComponent(k.kind)}`}>{k.kind}</Link></li>))}
+                </ul>
+              )}
+            </div>
           ))}
           <details className="border-t border-line py-2.5">
             <summary className="cursor-pointer font-medium">البراندات</summary>
@@ -103,6 +111,6 @@ export default function Header({ nav }: { nav: NavData }) {
           {authReady && !user && <Link href="/login" onClick={close} className="block border-t border-line py-2.5 font-medium">تسجيل الدخول</Link>}
         </div>
       </div>
-    </header>
+    </>
   );
 }
