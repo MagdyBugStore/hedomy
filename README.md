@@ -10,3 +10,5 @@ npm run build && npm start
 ```
 الـ deploy: push على `main` ← webhook ← `deploy/deploy.sh` (pull + build + restart لخدمة `hedomy-web`).
 المتغيرات `NEXT_PUBLIC_*` تُدمج وقت الـ build.
+
+> Auto-deploy: push to `main` redeploys this service (webhook → deploy/deploy.sh).
