@@ -17,6 +17,9 @@ export const SORTS = [
   { key: "price_asc", label: "السعر: الأقل أولاً" },
   { key: "price_desc", label: "السعر: الأعلى أولاً" },
   { key: "discount", label: "الأعلى خصماً" },
+  { key: "popular", label: "الأكثر إعجاباً" },
+  { key: "viewed", label: "الأكثر مشاهدة" },
+  { key: "rated", label: "الأعلى تقييماً" },
 ] as const;
 
 export const ORDER_STATUSES: Record<string, string> = {

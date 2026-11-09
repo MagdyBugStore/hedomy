@@ -14,6 +14,9 @@ type Facets = {
   kinds: { key: string; count: number }[];
   brands: { key: string; name: string; count: number }[];
   sizes: { key: string; count: number }[];
+  colors: { key: string; name: string; hex: string; count: number }[];
+  materials: { key: string; count: number }[];
+  fits: { key: string; count: number }[];
   price: { min: number; max: number };
 };
 type Result = { items: ProductDTO[]; total: number; page: number; pages: number; facets: Facets | null };
@@ -24,7 +27,7 @@ function FilterGroup({ title, children }: { title: string; children: React.React
   );
 }
 
-const MULTI = ["kind", "brand", "size"] as const;
+const MULTI = ["kind", "brand", "size", "color", "material", "fit"] as const;
 
 export default function ShopClient({ lockBrand, brandName: lockedName, logo }: { lockBrand?: string; brandName?: string; logo?: Logo } = {}) {
   const router = useRouter();
@@ -87,7 +90,7 @@ export default function ShopClient({ lockBrand, brandName: lockedName, logo }: {
     const cur = sel[k];
     push({ [k]: (cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v]).join(",") || null });
   };
-  const activeCount = MULTI.reduce((s, k) => s + sel[k].length, 0) + (sp.get("min") || sp.get("max") ? 1 : 0);
+  const activeCount = MULTI.reduce((s, k) => s + sel[k].length, 0) + (sp.get("min") || sp.get("max") ? 1 : 0) + (sp.get("rating") ? 1 : 0);
   const brandName = (k: string) => facets?.brands.find((b) => b.key === k)?.name || k;
   const title = lockedName || (sp.get("q") ? `نتائج البحث` : sp.get("sale") ? "تخفيضات" : cat ? CAT_LABEL[cat] : "كل الملابس");
   
@@ -199,6 +202,41 @@ export default function ShopClient({ lockBrand, brandName: lockedName, logo }: {
                   ))}
                 </div>
               </FilterGroup>
+              {facets.colors.length > 0 && <FilterGroup title="اللون">
+                <div className="flex flex-wrap gap-2.5">
+                  {facets.colors.map((c) => (
+                    <button key={c.key} aria-pressed={sel.color.includes(c.key)} onClick={() => toggle("color", c.key)} title={`${c.name} (${c.count})`} aria-label={c.name}
+                      className={`h-8 w-8 rounded-full border p-0.5 ${sel.color.includes(c.key) ? "border-ink ring-1 ring-ink" : "border-line"}`}>
+                      <span className="block h-full w-full rounded-full border border-black/10" style={{ background: c.hex || "conic-gradient(#e33,#ee3,#3c3,#3ce,#33e,#c3c,#e33)" }} />
+                    </button>
+                  ))}
+                </div>
+                {sel.color.length > 0 && <p className="mt-2 text-xs text-muted">{sel.color.map((k) => facets.colors.find((c) => c.key === k)?.name || k).join("، ")}</p>}
+              </FilterGroup>}
+              {facets.materials.length > 0 && <FilterGroup title="الخامة">
+                <div className="flex flex-wrap gap-2">
+                  {facets.materials.map((m) => (
+                    <button key={m.key} aria-pressed={sel.material.includes(m.key)} onClick={() => toggle("material", m.key)}
+                      className={`rounded-full border px-3 py-1.5 text-sm ${sel.material.includes(m.key) ? "border-ink bg-ink text-white" : "border-line"}`}>{m.key} <span className="opacity-60">{m.count}</span></button>
+                  ))}
+                </div>
+              </FilterGroup>}
+              {facets.fits.length > 0 && <FilterGroup title="القصّة">
+                <div className="flex flex-wrap gap-2">
+                  {facets.fits.map((m) => (
+                    <button key={m.key} aria-pressed={sel.fit.includes(m.key)} onClick={() => toggle("fit", m.key)}
+                      className={`rounded-full border px-3 py-1.5 text-sm ${sel.fit.includes(m.key) ? "border-ink bg-ink text-white" : "border-line"}`}>{m.key}</button>
+                  ))}
+                </div>
+              </FilterGroup>}
+              <FilterGroup title="التقييم">
+                <div className="flex flex-wrap gap-2">
+                  {[4, 3].map((r) => (
+                    <button key={r} aria-pressed={sp.get("rating") === String(r)} onClick={() => push({ rating: sp.get("rating") === String(r) ? null : String(r) })}
+                      className={`rounded-full border px-3 py-1.5 text-sm ${sp.get("rating") === String(r) ? "border-ink bg-ink text-white" : "border-line"}`}>{r}★ فأكثر</button>
+                  ))}
+                </div>
+              </FilterGroup>
               <FilterGroup title="السعر (ج.م)">
                 <form className="flex items-center gap-2" onSubmit={(e) => { e.preventDefault(); push({ min: min || null, max: max || null }); }}>
                   <input className="field" inputMode="numeric" placeholder={`من ${money(facets.price.min).replace(" ج.م", "")}`} value={min} onChange={(e) => setMin(e.target.value.replace(/\D/g, ""))} aria-label="أقل سعر" />
@@ -212,7 +250,7 @@ export default function ShopClient({ lockBrand, brandName: lockedName, logo }: {
         </div>
         <div className="flex gap-2 border-t border-line p-4">
           <button className="btn flex-1" onClick={() => setOpen(false)}>عرض {data ? data.total.toLocaleString("en-US") : ""} منتج</button>
-          {activeCount > 0 && <button className="btn btn-line" onClick={() => push({ kind: null, brand: null, size: null, min: null, max: null })}>مسح</button>}
+          {activeCount > 0 && <button className="btn btn-line" onClick={() => push({ kind: null, brand: null, size: null, color: null, material: null, fit: null, rating: null, min: null, max: null })}>مسح</button>}
         </div>
       </aside>
     </div>

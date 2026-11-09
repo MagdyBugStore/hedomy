@@ -30,6 +30,12 @@ export default function ProductCard({ p, priority = false }: { p: ProductDTO; pr
             <span className="font-semibold">{money(p.price)}</span>
             {p.compareAt && <span className="text-xs text-muted line-through">{money(p.compareAt)}</span>}
           </div>
+          {(p.stats.reviews > 0 || p.stats.likes > 0) && (
+            <div className="mt-1 flex items-center gap-2 text-xs text-muted">
+              {p.stats.reviews > 0 && <span>★ {p.stats.rating} ({p.stats.reviews})</span>}
+              {p.stats.likes > 0 && <span>♥ {p.stats.likes}</span>}
+            </div>
+          )}
         </Link>
       </div>
       <button

@@ -11,6 +11,7 @@ export default function BuyBox({ p }: { p: ProductDTO }) {
   const [added, setAdded] = useState(false);
   const fav = favs.includes(p.id);
   const brand = p.origin === "brand";
+  const shown = p.allSizes.length ? p.allSizes : p.sizes; // every size the piece comes in; the ones not in stock are struck through
 
   const add = () => {
     if (!size && p.sizes.length) { notify("اختر المقاس أولاً"); return; }
@@ -20,20 +21,23 @@ export default function BuyBox({ p }: { p: ProductDTO }) {
 
   return (
     <div className="mt-6">
-      {p.sizes.length > 0 && !(p.sizes.length === 1 && p.sizes[0] === "مقاس موحد") && (
+      {shown.length > 0 && !(shown.length === 1 && shown[0] === "مقاس موحد") && (
         <div>
           <div className="mb-2 text-sm text-muted">المقاس{brand ? " (حسب توفر البراند)" : ""}</div>
           <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="المقاس">
-            {p.sizes.map((s) => (
-              <button key={s} role="radio" aria-checked={size === s} onClick={() => setSize(s)} dir="ltr"
-                className={`min-w-12 border px-3 py-2 text-sm ${size === s ? "border-ink bg-ink text-white" : "border-line bg-surface hover:border-ink"}`}>{s}</button>
-            ))}
+            {shown.map((s) => {
+              const out = !p.sizes.includes(s);
+              return (
+                <button key={s} role="radio" aria-checked={size === s} aria-disabled={out} disabled={out} title={out ? "غير متوفر" : undefined} onClick={() => setSize(s)} dir="ltr"
+                  className={`min-w-12 border px-3 py-2 text-sm ${out ? "cursor-not-allowed border-line text-muted/50 line-through" : size === s ? "border-ink bg-ink text-white" : "border-line bg-surface hover:border-ink"}`}>{s}</button>
+              );
+            })}
           </div>
         </div>
       )}
       <div className="mt-6 flex gap-2">
         {brand ? (
-          <a href={p.url} target="_blank" rel="noopener noreferrer" className="btn flex-1">اشترِ من موقع {p.brand} ↗</a>
+          <a href={p.url} onClick={() => { fetch(`/api/products/${encodeURIComponent(p.id)}/out`, { method: "POST", keepalive: true }).catch(() => {}); }} target="_blank" rel="noopener noreferrer" className="btn flex-1">اشترِ من موقع {p.brand} ↗</a>
         ) : p.price == null ? (
           <a className="btn flex-1" href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP}`}>اسأل عن السعر</a>
         ) : (

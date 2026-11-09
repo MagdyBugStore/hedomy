@@ -8,6 +8,9 @@ import { CAT_LABEL } from "@/lib/config";
 import Gallery from "@/components/Gallery";
 import BuyBox from "@/components/BuyBox";
 import ProductCard from "@/components/ProductCard";
+import ProductTrack from "@/components/ProductTrack";
+import Reviews from "@/components/Reviews";
+import { StatsBar, Swatches, Specs, SizeGuide } from "@/components/ProductDetails";
 
 export const dynamic = "force-dynamic";
 
@@ -37,11 +40,17 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             {p.compareAt && <span className="text-muted line-through">{money(p.compareAt)}</span>}
             {p.discount > 0 && <span className="bg-ink px-2 py-0.5 text-xs text-white">خصم {p.discount}%</span>}
           </div>
+          <StatsBar p={p} />
           {!p.available && <p className="mt-3 text-sm text-red-700">غير متوفر حالياً</p>}
+          <Swatches p={p} />
           <BuyBox p={p} />
           {p.description && <p className="mt-8 whitespace-pre-line border-t border-line pt-6 leading-8 text-[#444]">{p.description}</p>}
+          <Specs p={p} />
+          <SizeGuide p={p} />
         </div>
       </div>
+      <div className="max-w-3xl"><Reviews id={p.id} sizes={p.allSizes.length ? p.allSizes : p.sizes} /></div>
+      <ProductTrack id={p.id} />
       {rel.length > 0 && (
         <section className="mt-20">
           <h2 className="mb-5 text-xl font-semibold">منتجات مشابهة</h2>
