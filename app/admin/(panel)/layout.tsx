@@ -16,6 +16,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
           <strong className="text-lg">لوحة هدومي</strong>
           <Link href="/admin" className="text-sm hover:underline">الطلبات</Link>
           <Link href="/admin/products" className="text-sm hover:underline">المنتجات</Link>
+          <Link href="/admin/merchants" className="text-sm hover:underline">التجار</Link>
           <Link href="/" className="text-sm text-muted hover:underline">الموقع ↗</Link>
         </div>
         <LogoutButton />

@@ -26,6 +26,7 @@ export type ProductDTO = {
   sizeChartImage: string;
   details: { label: string; value: string }[];
   sizeChart: { unit: string; headers: string[]; rows: string[][] } | null;
+  contact?: { wa: string; name: string } | null;
   stats: { views: number; likes: number; opens: number; rating: number; reviews: number };
 };
 

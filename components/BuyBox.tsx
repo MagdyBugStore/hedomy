@@ -13,6 +13,26 @@ export default function BuyBox({ p }: { p: ProductDTO }) {
   const brand = p.origin === "brand";
   const shown = p.allSizes.length ? p.allSizes : p.sizes; // every size the piece comes in; the ones not in stock are struck through
 
+  const wa = p.contact?.wa;
+  const count = () => { fetch(`/api/products/${encodeURIComponent(p.id)}/contact`, { method: "POST", keepalive: true }).catch(() => {}); };
+  // ready-made inquiry that opens the MERCHANT's chat (never ours); we only count the tap
+  const askMerchant = () => {
+    const text = [
+      "السلام عليكم 👋",
+      "أنا جاي من خلال موقع هدومي وعايز أستفسر عن المنتج ده:",
+      "",
+      `• المنتج: ${p.title}`,
+      `• التاجر: ${p.brand}`,
+      size && size !== "مقاس موحد" ? `• المقاس: ${size}` : "",
+      p.price != null ? `• السعر على الموقع: ${Math.round(p.price)} ج.م` : "",
+      `• الرابط: ${window.location.origin}/product/${encodeURIComponent(p.id)}`,
+      "",
+      "هل المنتج متاح؟ وممكن تفاصيل أكتر (الألوان / المقاسات / الشحن)؟ شكراً",
+    ].filter((l, i, a) => l !== "" || (a[i - 1] !== "" && i > 0)).join("\n");
+    count();
+    window.open(`https://wa.me/${wa}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+  };
+
   const add = () => {
     if (!size && p.sizes.length) { notify("اختر المقاس أولاً"); return; }
     addToCart({ id: p.id, size: size || "مقاس موحد", title: p.title, brand: p.brand, price: p.price || 0, image: p.images[0] || "" });
@@ -38,14 +58,17 @@ export default function BuyBox({ p }: { p: ProductDTO }) {
       <div className="mt-6 flex gap-2">
         {brand ? (
           <a href={p.url} onClick={() => { fetch(`/api/products/${encodeURIComponent(p.id)}/out`, { method: "POST", keepalive: true }).catch(() => {}); }} target="_blank" rel="noopener noreferrer" className="btn flex-1">اشترِ من موقع {p.brand} ↗</a>
-        ) : p.price == null ? (
-          <a className="btn flex-1" href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP}`}>اسأل عن السعر</a>
-        ) : (
+        ) : p.price != null ? (
           <button className="btn flex-1" onClick={add}>أضف إلى السلة</button>
-        )}
+        ) : wa ? (
+          <button className="btn flex-1" onClick={askMerchant}>استفسر عن المنتج على واتساب</button>
+        ) : p.origin === "instagram" && p.url ? (
+          <a href={p.url} onClick={count} target="_blank" rel="noopener noreferrer" className="btn flex-1">راسل التاجر على إنستجرام ↗</a>
+        ) : null}
         <button onClick={() => toggleFav(p.id)} aria-pressed={fav} aria-label="المفضلة" className="btn btn-line !px-4"><HeartIcon filled={fav} /></button>
       </div>
-      {p.origin === "instagram" && p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="mt-3 block text-center text-sm underline">شاهد البوست على إنستجرام ↗</a>}
+      {!brand && p.price != null && wa && <button className="btn btn-line mt-2 w-full" onClick={askMerchant}>استفسر من التاجر على واتساب</button>}
+      {p.origin === "instagram" && p.url && (wa || p.price != null) && <a href={p.url} target="_blank" rel="noopener noreferrer" className="mt-3 block text-center text-sm underline">شاهد البوست على إنستجرام ↗</a>}
       {added && <Link href="/cart" className="mt-3 block text-center text-sm underline">عرض السلة وإتمام الطلب</Link>}
       {brand && <p className="mt-3 text-xs text-muted">هذا المنتج يباع على موقع {p.brand} الرسمي، وسيتم تحويلك إلى صفحة المنتج هناك لإتمام الشراء.</p>}
     </div>
