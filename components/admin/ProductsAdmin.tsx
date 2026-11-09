@@ -51,6 +51,7 @@ export default function ProductsAdmin() {
         <select className="pill" value={origin} onChange={(e) => { setOrigin(e.target.value); setPage(1); }}>
           <option value="telegram">منتجات هدومي (تيليجرام)</option>
           <option value="brand">منتجات البراندات</option>
+          <option value="instagram">منتجات إنستجرام</option>
           <option value="">الكل</option>
         </select>
       </div>

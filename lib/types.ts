@@ -1,6 +1,6 @@
 export type ProductDTO = {
   id: string;
-  origin: "brand" | "telegram";
+  origin: "brand" | "telegram" | "instagram";
   brand: string;
   brandKey: string;
   title: string;

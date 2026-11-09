@@ -45,6 +45,7 @@ export default function BuyBox({ p }: { p: ProductDTO }) {
         )}
         <button onClick={() => toggleFav(p.id)} aria-pressed={fav} aria-label="المفضلة" className="btn btn-line !px-4"><HeartIcon filled={fav} /></button>
       </div>
+      {p.origin === "instagram" && p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="mt-3 block text-center text-sm underline">شاهد البوست على إنستجرام ↗</a>}
       {added && <Link href="/cart" className="mt-3 block text-center text-sm underline">عرض السلة وإتمام الطلب</Link>}
       {brand && <p className="mt-3 text-xs text-muted">هذا المنتج يباع على موقع {p.brand} الرسمي، وسيتم تحويلك إلى صفحة المنتج هناك لإتمام الشراء.</p>}
     </div>
