@@ -30,9 +30,9 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       <nav className="mb-6 text-sm text-muted" aria-label="مسار التنقل">
         <Link href="/shop" className="hover:text-ink">المتجر</Link> / <Link href={`/shop?cat=${p.category}`} className="hover:text-ink">{CAT_LABEL[p.category]}</Link> / <span className="text-ink">{p.kind}</span>
       </nav>
-      <div className="grid gap-8 md:grid-cols-2 md:gap-14">
+      <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-14">
         <Gallery images={p.images} alt={p.title} />
-        <div className="md:pt-4">
+        <div className="min-w-0 md:pt-4">
           <Link href={`/brand/${p.brandKey}`} className="text-sm text-muted hover:text-ink">{p.brand}</Link>
           <h1 className="mt-1 text-2xl font-semibold leading-snug md:text-3xl">{p.title}</h1>
           <div className="mt-3 flex items-baseline gap-3">
