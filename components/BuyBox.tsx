@@ -1,4 +1,5 @@
 "use client";
+import { productPath } from "@/lib/site";
 import { useState } from "react";
 import Link from "next/link";
 import type { ProductDTO } from "@/lib/types";
@@ -25,7 +26,7 @@ export default function BuyBox({ p }: { p: ProductDTO }) {
       `• التاجر: ${p.brand}`,
       size && size !== "مقاس موحد" ? `• المقاس: ${size}` : "",
       p.price != null ? `• السعر على الموقع: ${Math.round(p.price)} ج.م` : "",
-      `• الرابط: ${window.location.origin}/product/${encodeURIComponent(p.id)}`,
+      `• الرابط: ${window.location.origin}${productPath(p)}`,
       "",
       "هل المنتج متاح؟ وممكن تفاصيل أكتر (الألوان / المقاسات / الشحن)؟ شكراً",
     ].filter((l, i, a) => l !== "" || (a[i - 1] !== "" && i > 0)).join("\n");

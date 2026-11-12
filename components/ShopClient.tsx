@@ -29,7 +29,7 @@ function FilterGroup({ title, children }: { title: string; children: React.React
 
 const MULTI = ["kind", "brand", "size", "color", "material", "fit"] as const;
 
-export default function ShopClient({ lockBrand, brandName: lockedName, logo }: { lockBrand?: string; brandName?: string; logo?: Logo } = {}) {
+export default function ShopClient({ lockBrand, brandName: lockedName, logo, baseCat, baseKind }: { lockBrand?: string; brandName?: string; logo?: Logo; baseCat?: string; baseKind?: string } = {}) {
   const router = useRouter();
   const pathname = usePathname();
   const sp = useSearchParams();
@@ -44,18 +44,24 @@ export default function ShopClient({ lockBrand, brandName: lockedName, logo }: {
   const searchRef = useRef<HTMLInputElement>(null);
   const facetKey = useRef("");
 
-  const cat = sp.get("cat") || "";
+  const cat = baseCat || sp.get("cat") || "";
   const sort = sp.get("sort") || "mix";
   const page = Math.max(1, +(sp.get("page") || 1));
-  const sel = useMemo(() => Object.fromEntries(MULTI.map((k) => [k, (sp.get(k) || "").split(",").filter(Boolean)])) as Record<(typeof MULTI)[number], string[]>, [sp]);
+  const sel = useMemo(() => {
+    const o = Object.fromEntries(MULTI.map((k) => [k, (sp.get(k) || "").split(",").filter(Boolean)])) as Record<(typeof MULTI)[number], string[]>;
+    if (baseKind && !sp.has("kind")) o.kind = [baseKind]; // clean landing URL /shop/<cat>/<kind>
+    return o;
+  }, [sp, baseKind]);
 
   const push = useCallback((patch: Record<string, string | null>, keepPage = false) => {
     const n = new URLSearchParams(sp.toString());
+    // leaving a clean landing URL (/shop/women/…): carry its category/kind into the query form
+    if (baseCat) { n.set("cat", baseCat); if (baseKind && !n.has("kind")) n.set("kind", baseKind); }
     for (const [k, v] of Object.entries(patch)) { if (v) n.set(k, v); else n.delete(k); }
     if (!keepPage) n.delete("page");
     n.delete("focus");
-    router.push(`${pathname}${n.toString() ? "?" + n : ""}`, { scroll: false });
-  }, [sp, router, pathname]);
+    router.push(`${baseCat ? "/shop" : pathname}${n.toString() ? "?" + n : ""}`, { scroll: false });
+  }, [sp, router, pathname, baseCat, baseKind]);
 
   // fetch products (and facets when the base filters changed)
   useEffect(() => {
@@ -63,6 +69,7 @@ export default function ShopClient({ lockBrand, brandName: lockedName, logo }: {
     const p = new URLSearchParams(qs);
     p.delete("focus");
     if (lockBrand) p.set("only", lockBrand);
+    if (baseCat) { p.set("cat", baseCat); if (baseKind && !p.has("kind")) p.set("kind", baseKind); }
     const fk = ["cat", "q", "min", "max", "sale"].map((k) => p.get(k) || "").join("|");
     const wantFacets = fk !== facetKey.current;
     if (wantFacets) p.set("facets", "1");
@@ -76,7 +83,7 @@ export default function ShopClient({ lockBrand, brandName: lockedName, logo }: {
       })
       .catch((e) => { if (e.name !== "AbortError") setLoading(false); });
     return () => ctl.abort();
-  }, [qs, lockBrand]);
+  }, [qs, lockBrand, baseCat, baseKind]);
 
   useEffect(() => { if (sp.get("focus") === "search") searchRef.current?.focus(); }, [sp]);
   useEffect(() => { setQ(sp.get("q") || ""); setMin(sp.get("min") || ""); setMax(sp.get("max") || ""); }, [sp]);
@@ -92,7 +99,7 @@ export default function ShopClient({ lockBrand, brandName: lockedName, logo }: {
   };
   const activeCount = MULTI.reduce((s, k) => s + sel[k].length, 0) + (sp.get("min") || sp.get("max") ? 1 : 0) + (sp.get("rating") ? 1 : 0);
   const brandName = (k: string) => facets?.brands.find((b) => b.key === k)?.name || k;
-  const title = lockedName || (sp.get("q") ? `نتائج البحث` : sp.get("sale") ? "تخفيضات" : cat ? CAT_LABEL[cat] : "كل الملابس");
+  const title = lockedName || (sp.get("q") ? `نتائج البحث` : sp.get("sale") ? "تخفيضات" : cat ? (baseKind ? `${baseKind} ${CAT_LABEL[cat] || ""}` : CAT_LABEL[cat]) : "كل الملابس");
   
   const pages = data?.pages || 1;
   const pageList = useMemo(() => {

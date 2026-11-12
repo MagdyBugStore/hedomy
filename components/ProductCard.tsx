@@ -1,4 +1,5 @@
 "use client";
+import { productPath } from "@/lib/site";
 import Link from "next/link";
 import type { ProductDTO } from "@/lib/types";
 import { imgSrc, money } from "@/lib/format";
@@ -11,7 +12,7 @@ export default function ProductCard({ p, priority = false }: { p: ProductDTO; pr
   const fav = favs.includes(p.id);
   return (
     <article className="group relative">
-      <Link href={`/product/${encodeURIComponent(p.id)}`} className="block" tabIndex={-1} aria-hidden="true">
+      <Link href={productPath(p)} className="block" tabIndex={-1} aria-hidden="true">
         <div className="relative aspect-[3/4] overflow-hidden bg-tile">
           <FadeImg src={imgSrc(p.images[0], 600)} alt={p.title} eager={priority} className="transition duration-500 group-hover:scale-[1.03]" />
           {p.images[1] && (
@@ -24,7 +25,7 @@ export default function ProductCard({ p, priority = false }: { p: ProductDTO; pr
       </Link>
       <div className="pt-3">
         <Link href={`/brand/${p.brandKey}`} className="relative z-10 inline-block py-1 text-xs text-muted underline-offset-4 hover:text-ink hover:underline">{p.brand}</Link>
-        <Link href={`/product/${encodeURIComponent(p.id)}`} className="block">
+        <Link href={productPath(p)} className="block">
           <h3 className="mt-0.5 line-clamp-2 min-h-[2.6em] text-[15px] leading-snug">{p.title}</h3>
           <div className="mt-1 flex items-baseline gap-2 text-sm">
             <span className="font-semibold">{money(p.price)}</span>

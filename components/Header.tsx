@@ -7,6 +7,7 @@ import { BagIcon, CloseIcon, HeartIcon, MenuIcon, SearchIcon } from "./Icons";
 import { SITE_NAME } from "@/lib/config";
 import type { NavData } from "@/lib/types";
 import BrandLogo from "./BrandLogo";
+import { shopPath } from "@/lib/site";
 
 const trigger = "inline-flex items-center gap-1 px-3 py-2 text-sm text-ink/70 hover:text-ink group-hover:text-ink group-focus-within:text-ink";
 const panel = "invisible absolute right-0 top-full z-50 min-w-[220px] border border-line bg-surface p-4 opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100";
@@ -27,12 +28,12 @@ export default function Header({ nav }: { nav: NavData }) {
           <Link href="/shop" className={trigger}>كل الملابس</Link>
           {nav.cats.map((c) => (
             <div key={c.key} className="group relative">
-              <Link href={`/shop?cat=${c.key}`} className={trigger}>{c.label} <Chevron /></Link>
+              <Link href={shopPath(c.key)} className={trigger}>{c.label} <Chevron /></Link>
               <div className={panel}>
                 <ul className="space-y-1.5 text-sm">
-                  <li><Link href={`/shop?cat=${c.key}`} className="font-semibold hover:underline">كل {c.label}</Link></li>
+                  <li><Link href={shopPath(c.key)} className="font-semibold hover:underline">كل {c.label}</Link></li>
                   {c.kinds.map((k) => (
-                    <li key={k.kind}><Link href={`/shop?cat=${c.key}&kind=${encodeURIComponent(k.kind)}`} className="flex justify-between gap-6 text-ink/80 hover:text-ink hover:underline">{k.kind}<span className="text-xs text-muted">{k.count}</span></Link></li>
+                    <li key={k.kind}><Link href={shopPath(c.key, k.kind)} className="flex justify-between gap-6 text-ink/80 hover:text-ink hover:underline">{k.kind}<span className="text-xs text-muted">{k.count}</span></Link></li>
                   ))}
                 </ul>
               </div>
@@ -88,13 +89,13 @@ export default function Header({ nav }: { nav: NavData }) {
           {nav.cats.map((c) => (
             <div key={c.key} className="border-t border-line">
               <div className="flex items-stretch">
-                <Link href={`/shop?cat=${c.key}`} onClick={close} className="flex-1 py-2.5 font-medium">{c.label}</Link>
+                <Link href={shopPath(c.key)} onClick={close} className="flex-1 py-2.5 font-medium">{c.label}</Link>
                 <button type="button" aria-label={`أقسام ${c.label}`} aria-expanded={open === c.key} onClick={() => setOpen(open === c.key ? null : c.key)} className="grid w-12 place-items-center"><span className={`transition-transform ${open === c.key ? "rotate-180" : ""}`}><Chevron /></span></button>
               </div>
               {open === c.key && (
                 <ul className="mb-2 space-y-2 ps-3 text-sm">
-                  <li><Link onClick={close} href={`/shop?cat=${c.key}`} className="font-semibold">كل {c.label}</Link></li>
-                  {c.kinds.map((k) => (<li key={k.kind}><Link onClick={close} href={`/shop?cat=${c.key}&kind=${encodeURIComponent(k.kind)}`}>{k.kind}</Link></li>))}
+                  <li><Link onClick={close} href={shopPath(c.key)} className="font-semibold">كل {c.label}</Link></li>
+                  {c.kinds.map((k) => (<li key={k.kind}><Link onClick={close} href={shopPath(c.key, k.kind)}>{k.kind}</Link></li>))}
                 </ul>
               )}
             </div>

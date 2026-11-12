@@ -1,4 +1,5 @@
 "use client";
+import { productPath } from "@/lib/site";
 import Link from "next/link";
 import { useStore } from "@/components/Providers";
 import { imgSrc, money } from "@/lib/format";
@@ -20,7 +21,7 @@ export default function CartPage() {
           <ul className="divide-y divide-line border-y border-line">
             {cart.map((l) => (
               <li key={l.id + l.size} className="flex gap-4 py-5">
-                <Link href={`/product/${encodeURIComponent(l.id)}`} className="h-28 w-[84px] shrink-0 bg-tile">
+                <Link href={productPath({ id: l.id, title: l.title, kind: "", brand: l.brand })} className="h-28 w-[84px] shrink-0 bg-tile">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={imgSrc(l.image, 200)} alt="" className="h-full w-full object-cover" />
                 </Link>

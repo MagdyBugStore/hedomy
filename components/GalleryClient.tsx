@@ -1,4 +1,5 @@
 "use client";
+import { productPath } from "@/lib/site";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { ProductDTO } from "@/lib/types";
@@ -23,7 +24,7 @@ function Tile({ p, onOpen }: { p: ProductDTO; onOpen: (p: ProductDTO) => void })
   const liked = favs.includes(p.id);
   return (
     <figure className="group relative mb-3 break-inside-avoid overflow-hidden bg-tile md:mb-4">
-      <a href={`/product/${encodeURIComponent(p.id)}`} onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return; e.preventDefault(); onOpen(p); }} className="block">
+      <a href={productPath(p)} onClick={(e) => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return; e.preventDefault(); onOpen(p); }} className="block">
         <div className={`relative w-full ${ratioFor(p.id)}`}><FadeImg src={imgSrc(p.images[0], 500)} alt={p.title} /></div>
         <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 pt-10 text-white opacity-0 transition-opacity group-hover:opacity-100 max-md:opacity-100">
           <div className="text-[11px] opacity-80">{p.brand}</div>
@@ -100,7 +101,7 @@ function PinView({ stack, onOpen, onBack, onClose }: { stack: ProductDTO[]; onOp
             <h2 className="mt-1 text-xl font-semibold leading-snug">{p.title}</h2>
             <div className="mt-2 text-lg">{p.price != null ? money(p.price) : "اسأل عن السعر"}</div>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Link href={`/product/${encodeURIComponent(p.id)}`} className="bg-ink px-6 py-3 text-sm text-white">عرض المنتج والتفاصيل</Link>
+              <Link href={productPath(p)} className="bg-ink px-6 py-3 text-sm text-white">عرض المنتج والتفاصيل</Link>
               <button type="button" onClick={() => toggleFav(p.id, "gallery")} aria-pressed={liked} className={`flex items-center gap-2 border border-line px-4 py-3 text-sm ${liked ? "bg-ink text-white" : ""}`}><HeartIcon filled={liked} size={18} />{liked ? "في المفضلة" : "أعجبني"}</button>
             </div>
           </div>

@@ -8,13 +8,22 @@ const nextConfig: NextConfig = {
     rules: { "*.css": { loaders: ["@tailwindcss/turbopack"], as: "*.css" } },
   },
   images: { unoptimized: true },
+  async headers() {
+    const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
+    return ["/admin/:path*", "/cart", "/checkout", "/login", "/order/:path*", "/favorites", "/gallery"].map((source) => ({ source, headers: noindex }));
+  },
   async rewrites() {
-    return [
+    return {
+      // /sitemap.xml = sitemap index (see app/sitemap-index)
+      beforeFiles: [{ source: "/sitemap.xml", destination: "/sitemap-index" }],
+      afterFiles: [
       { source: "/api/:path*", destination: `${API}/api/:path*` },
       // Telegram product photos and brand logos live with the API
       { source: "/images/:path*", destination: `${API}/static/images/:path*` },
       { source: "/brand-logos/:path*", destination: `${API}/static/brand-logos/:path*` },
-    ];
+      ],
+      fallback: [],
+    };
   },
 };
 

@@ -14,7 +14,7 @@ export default function Footer() {
           <p className="mt-2 max-w-xs">ملابس من أفضل البراندات المصرية في مكان واحد.</p>
         </div>
         <ul className="space-y-2">
-          {CATEGORIES.map((c) => (<li key={c.key}><Link href={`/shop?cat=${c.key}`} className="hover:text-ink">{c.label}</Link></li>))}
+          {CATEGORIES.map((c) => (<li key={c.key}><Link href={`/shop/${c.key}`} className="hover:text-ink">{c.label}</Link></li>))}
         </ul>
         <ul className="space-y-2">
           <li><Link href="/favorites" className="hover:text-ink">المفضلة</Link></li>
